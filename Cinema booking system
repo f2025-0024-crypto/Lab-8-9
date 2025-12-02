@@ -1,0 +1,73 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int R, C;
+    cout << "Enter number of rows: ";
+    cin >> R;
+    cout << "Enter number of columns: ";
+    cin >> C;
+
+    // Create seat map (all seats initially available 'O')
+    vector<vector<char>> seats(R, vector<char>(C, 'O'));
+
+    // ---------------- STEP 1 ----------------
+    cout << "\n--- Seat Layout (row-seat format) ---\n";
+    for (int i = 1; i <= R; i++) {
+        for (int j = 1; j <= C; j++) {
+            cout << "(" << i << "-" << j << ") ";
+        }
+        cout << endl;
+    }
+
+    int choice = 1;
+    while (choice == 1) {
+
+        // ---------------- Display Current Reservation Map ----------------
+        cout << "\n--- Current Reservation Map ---\n";
+        cout << "O = Available, X = Reserved\n\n";
+
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++) {
+                cout << seats[i][j] << " ";
+            }
+            cout << endl;
+        }
+
+        // ---------------- Booking ----------------
+        int row, col;
+        cout << "\nEnter row number to reserve: ";
+        cin >> row;
+        cout << "Enter seat number to reserve: ";
+        cin >> col;
+
+        // Validate seat
+        if (row < 1 || row > R || col < 1 || col > C) {
+            cout << "Invalid seat! Try again.\n";
+        } 
+        else if (seats[row-1][col-1] == 'X') {
+            cout << "Seat already reserved!\n";
+        } 
+        else {
+            seats[row-1][col-1] = 'X';
+            cout << "Seat reserved successfully!\n";
+        }
+
+        // Continue?
+        cout << "\nEnter 1 to reserve another seat, 0 to exit: ";
+        cin >> choice;
+    }
+
+    cout << "\n--- Final Reservation Map ---\n";
+    for (int i = 0; i < R; i++) {
+        for (int j = 0; j < C; j++) {
+            cout << seats[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    cout << "\nThank you for using the Movie Theater Booking System!\n";
+
+    return 0;
+}
